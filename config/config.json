@@ -1,0 +1,10 @@
+{
+    "email": {
+        "sender": "seanogmc@yahoo.com",
+        "password": "your_app_specific_password",
+        "receiver": "seanogmc@yahoo.com",
+        "smtp_server": "smtp.gmail.com",
+        "smtp_port": 587
+    },
+    "pay_rate": 12.80
+}

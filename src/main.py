@@ -1,17 +1,21 @@
-import schedule
-import tkcalendar
+import threading
+from gui import ShiftManagerGUI
+import emailer
+import tkinter as tk
 
-def test_job():
-    print("Schedule test job ran!")
+def run_emailer():
+    """Run the emailer in a separate thread."""
+    emailer.send_weekly_email()  # For testing
+    while True:
+        emailer.schedule.run_pending()
+        time.sleep(60)
 
-schedule.every(10).seconds.do(test_job)
+if __name__ == "__main__":
+    # Start the emailer in a background thread
+    emailer_thread = threading.Thread(target=run_emailer, daemon=True)
+    emailer_thread.start()
 
-import time
-for _ in range(3):
-    schedule.run_pending()
-    time.sleep(1)
-
-# Test tkcalendar
-print("Tkcalendar version:", tkcalendar.__version__)
-
-print("Hospital Shift Manager setup is working!")
+    # Start the GUI
+    root = tk.Tk()
+    app = ShiftManagerGUI(root)
+    root.mainloop()
